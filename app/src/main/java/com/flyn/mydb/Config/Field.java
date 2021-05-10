@@ -14,6 +14,9 @@ public class Field implements Serializable {
     protected transient boolean isIndex = false;// 是否是索引字段,默认不参与序列化的过程
     protected transient IndexNode indexRoot = null;// 索引树的根节点
 
+    public Field() {
+    }
+
     public Field(String fieldName, String type, int length, int column, boolean isNull, boolean isPrimary, boolean isIndex, IndexNode indexRoot) {
         this.fieldName = fieldName;
         this.type = type;

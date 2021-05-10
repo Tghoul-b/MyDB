@@ -77,7 +77,6 @@ public class MainActivity extends AppCompatActivity {
         tv0.setText(device_name+": user");
         tv0.setTypeface(typeface);
         this.device_name=device_name;
-
         Timer timerRam=new Timer();
         timerRam.schedule(new MyTaskRam(),0,3000);
         Timer timeCharge=new Timer();
