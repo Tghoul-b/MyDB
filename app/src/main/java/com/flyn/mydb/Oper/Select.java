@@ -1,8 +1,12 @@
-package com.flyn.mydb.Config;
+package com.flyn.mydb.Oper;
+
+import com.flyn.mydb.Config.ConditionalExpression;
+import com.flyn.mydb.Config.DisplayField;
+import com.flyn.mydb.Oper.Operate;
 
 import java.util.List;
 
-public class Select implements Operate{
+public class Select implements Operate {
     private boolean seeAll=false;
     private int numberFeld=0;//显示的属性数量
     private List<DisplayField> attributes=null;//显示的属性集合

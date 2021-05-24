@@ -72,4 +72,72 @@ public class Field implements Serializable {
     public int hashCode() {
         return Objects.hash(fieldName, type, length, column, isNull, isPrimary, isIndex, indexRoot);
     }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getFieldName() {
+        return fieldName;
+    }
+
+    public void setFieldName(String fieldName) {
+        this.fieldName = fieldName;
+    }
+
+    public String getType() {
+        return type;
+    }
+
+    public void setType(String type) {
+        this.type = type;
+    }
+
+    public int getLength() {
+        return length;
+    }
+
+    public void setLength(int length) {
+        this.length = length;
+    }
+
+    public int getColumn() {
+        return column;
+    }
+
+    public void setColumn(int column) {
+        this.column = column;
+    }
+
+    public boolean isNull() {
+        return isNull;
+    }
+
+    public void setNull(boolean aNull) {
+        isNull = aNull;
+    }
+
+    public boolean isPrimary() {
+        return isPrimary;
+    }
+
+    public void setPrimary(boolean primary) {
+        isPrimary = primary;
+    }
+
+    public boolean isIndex() {
+        return isIndex;
+    }
+
+    public void setIndex(boolean index) {
+        isIndex = index;
+    }
+
+    public IndexNode getIndexRoot() {
+        return indexRoot;
+    }
+
+    public void setIndexRoot(IndexNode indexRoot) {
+        this.indexRoot = indexRoot;
+    }
 }

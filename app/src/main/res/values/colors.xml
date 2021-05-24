@@ -19,4 +19,5 @@
     <color name="enter_color">#ffffffff</color>
     <color name="input_color">#ff00ff00</color>
     <color name="hint_color">#D5D5D5</color>
+    <color name="output_color">#ffffffff</color>
 </resources>

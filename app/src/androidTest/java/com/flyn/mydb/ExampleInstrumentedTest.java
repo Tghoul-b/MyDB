@@ -18,9 +18,10 @@ import static org.junit.Assert.*;
 @RunWith(AndroidJUnit4.class)
 public class ExampleInstrumentedTest {
     @Test
-    public void useAppContext() {
-        // Context of the app under test.
-        Context appContext = InstrumentationRegistry.getInstrumentation().getTargetContext();
-        assertEquals("com.flyn.mydb", appContext.getPackageName());
+    public void testInsert() {
+            String s="INSERT INTO employee VALUES(\"李白\", 370783190000000000, \"中国\", \"男\");";
+            String pattern="(?i)^(insert)\\s+(into)\\s+\\w+\\s+(values)\\s*"
+                    +"\\(\\s*(\\S+)\\s*(,\\s*\\S+\\s*)*\\);$";
+        System.out.println(s.matches(pattern));
     }
 }

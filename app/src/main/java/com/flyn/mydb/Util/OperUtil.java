@@ -11,8 +11,8 @@ public class OperUtil {
         for (Node node : rootNodes) {
             node.getFile().delete();
         }
-        Tree.leaves = null;
-        Tree.inners = null;
+//        Tree.leaves = null;
+//        Tree.inners = null;
     }
 
 }

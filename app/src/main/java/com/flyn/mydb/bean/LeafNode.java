@@ -14,7 +14,7 @@ public class LeafNode extends Node {
 
     public LeafNode(boolean isLeafNode, File file, boolean hasFather, int accountNumbers, Node father, int numberField, Set<DisplayField> saveFields,
                     String tableName, boolean existCondition,List<ConditionalExpression> conditions) {
-        super(isLeafNode, file, hasFather, accountNumbers, father, numberField, saveFields);
+        super(isLeafNode, file, hasFather, father, numberField, saveFields);
         this.tableName = tableName;
         this.existCondition = existCondition;
         this.conditions=conditions;
@@ -48,7 +48,7 @@ public class LeafNode extends Node {
     }
 
     public LeafNode(boolean isLeafNode, File file, boolean hasFather, int accountNumbers, Node father, int numberField, Set<DisplayField> saveFields) {
-        super(isLeafNode, file, hasFather, accountNumbers, father, numberField, saveFields);
+        super(isLeafNode, file, hasFather, father, numberField, saveFields);
     }
 
     @Override

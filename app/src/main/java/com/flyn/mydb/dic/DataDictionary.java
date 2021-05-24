@@ -18,7 +18,7 @@ public class DataDictionary implements Serializable {
     public DataDictionary(String name) throws Exception {
         this.name = name;
         this.path = DBMS.ROOTPATH + File.separator + this.name;//路径+分隔符+文件名
-        this.configFile=new File(this.name+".config");
+        this.configFile=new File(DBMS.ROOTPATH+File.separator+this.name+".config");
         this.tables=new ArrayList<>();
     }
 
