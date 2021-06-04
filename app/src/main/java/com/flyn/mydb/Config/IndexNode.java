@@ -19,7 +19,9 @@ public class IndexNode {
         this.parent = parent;
         this.children = children;
     }
-
+    public IndexNode() {
+        super();
+    }
     public boolean isLeaf() {
         return isLeaf;
     }
@@ -43,4 +45,5 @@ public class IndexNode {
     public void setChildren(List<NodeEntry> children) {
         this.children = children;
     }
+
 }

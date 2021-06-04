@@ -138,6 +138,7 @@ public class MainActivity extends AppCompatActivity {
         });
     }
     public void changeIns(int v){
+        if(cmdList.size()==0)  return ;
         if(curCmdCnt==-1){  //第一次调用切换的命令
             curCmdCnt=cmdList.size()-1;
             mInputView.setText(cmdList.get(curCmdCnt));

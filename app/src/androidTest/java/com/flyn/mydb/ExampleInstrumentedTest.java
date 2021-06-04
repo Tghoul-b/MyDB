@@ -23,5 +23,9 @@ public class ExampleInstrumentedTest {
             String pattern="(?i)^(insert)\\s+(into)\\s+\\w+\\s+(values)\\s*"
                     +"\\(\\s*(\\S+)\\s*(,\\s*\\S+\\s*)*\\);$";
         System.out.println(s.matches(pattern));
+        /**
+         * 已做好模块:显示模块，create,show,drop,select,insert,delete
+         * 还需要做的是alter
+         */
     }
 }

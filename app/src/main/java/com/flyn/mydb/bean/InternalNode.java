@@ -33,6 +33,54 @@ public class InternalNode extends Node {
         super(isLeafNode, file, hasFather, father, numberField, saveFields);
     }
 
+    public int getNumberTable() {
+        return numberTable;
+    }
+
+    public void setNumberTable(int numberTable) {
+        this.numberTable = numberTable;
+    }
+
+    public List<String> getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(List<String> tableName) {
+        this.tableName = tableName;
+    }
+
+    public boolean isJoinOperation() {
+        return IsJoinOperation;
+    }
+
+    public void setJoinOperation(boolean joinOperation) {
+        IsJoinOperation = joinOperation;
+    }
+
+    public ConditionalExpression getJoinCondition() {
+        return joinCondition;
+    }
+
+    public void setJoinCondition(ConditionalExpression joinCondition) {
+        this.joinCondition = joinCondition;
+    }
+
+    public Node getLeftNode() {
+        return leftNode;
+    }
+
+    public void setLeftNode(Node leftNode) {
+        this.leftNode = leftNode;
+    }
+
+    public Node getRightNode() {
+        return rightNode;
+    }
+
+    public void setRightNode(Node rightNode) {
+        this.rightNode = rightNode;
+    }
+
     @Override
     public String toString() {
         return super.toString();

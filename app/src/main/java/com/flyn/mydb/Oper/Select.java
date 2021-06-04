@@ -3,8 +3,13 @@ package com.flyn.mydb.Oper;
 import com.flyn.mydb.Config.ConditionalExpression;
 import com.flyn.mydb.Config.DisplayField;
 import com.flyn.mydb.Oper.Operate;
+import com.flyn.mydb.Service.ParseAccount;
+import com.flyn.mydb.bean.Node;
+import com.flyn.mydb.bean.Tree;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 public class Select implements Operate {
     private boolean seeAll=false;
@@ -23,6 +28,77 @@ public class Select implements Operate {
     @Override
     public void start() throws Exception {
         long start=System.currentTimeMillis();
+        ParseAccount.parseSelect(this, this.account);
+        List<Node> rootNodes= Tree.buildTree(this);
+        for(Node node:rootNodes){
+            Tree.traverseTree(node);
+        }
+        Set<String> displayAccounts=Tree.getDisplayAccounts(rootNodes);//从文件中读出所有记录，包括字段名
+        Tree.display(this,displayAccounts,rootNodes.get(0).getSaveFields());
+        OperUtil.garbageClear(rootNodes);
+    }
 
+    public boolean isSeeAll() {
+        return seeAll;
+    }
+
+    public void setSeeAll(boolean seeAll) {
+        this.seeAll = seeAll;
+    }
+
+    public int getNumberFeld() {
+        return numberFeld;
+    }
+
+    public void setNumberFeld(int numberFeld) {
+        this.numberFeld = numberFeld;
+    }
+
+    public List<DisplayField> getAttributes() {
+        return attributes;
+    }
+
+    public void setAttributes(List<DisplayField> attributes) {
+        this.attributes = attributes;
+    }
+
+    public int getNumberTable() {
+        return numberTable;
+    }
+
+    public void setNumberTable(int numberTable) {
+        this.numberTable = numberTable;
+    }
+
+    public List<String> getTableName() {
+        return tableName;
+    }
+
+    public void setTableName(List<String> tableName) {
+        this.tableName = tableName;
+    }
+
+    public boolean isExistWhereCondition() {
+        return existWhereCondition;
+    }
+
+    public void setExistWhereCondition(boolean existWhereCondition) {
+        this.existWhereCondition = existWhereCondition;
+    }
+
+    public List<List<ConditionalExpression>> getConditions() {
+        return conditions;
+    }
+
+    public void setConditions(List<List<ConditionalExpression>> conditions) {
+        this.conditions = conditions;
+    }
+
+    public String getAccount() {
+        return account;
+    }
+
+    public void setAccount(String account) {
+        this.account = account;
     }
 }

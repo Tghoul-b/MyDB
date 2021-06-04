@@ -12,7 +12,7 @@ public class LeafNode extends Node {
     private boolean existCondition=false;//存在条件
     private List<ConditionalExpression>  conditions=null;
 
-    public LeafNode(boolean isLeafNode, File file, boolean hasFather, int accountNumbers, Node father, int numberField, Set<DisplayField> saveFields,
+    public LeafNode(boolean isLeafNode, File file, boolean hasFather,Node father, int numberField, Set<DisplayField> saveFields,
                     String tableName, boolean existCondition,List<ConditionalExpression> conditions) {
         super(isLeafNode, file, hasFather, father, numberField, saveFields);
         this.tableName = tableName;

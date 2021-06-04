@@ -9,10 +9,10 @@ public class Field implements Serializable {
     protected String type;//字段类型
     protected int length;//字段长度
     protected int column;//字段所在列
-    protected boolean isNull=true;//字段是否为空,默认为空
-    protected boolean isPrimary=false;//字段是否可以为主键,默认不是
-    protected transient boolean isIndex = false;// 是否是索引字段,默认不参与序列化的过程
-    protected transient IndexNode indexRoot = null;// 索引树的根节点
+    public boolean isNull=true;//字段是否为空,默认为空
+    public boolean isPrimary=false;//字段是否可以为主键,默认不是
+    public transient boolean isIndex = false;// 是否是索引字段,默认不参与序列化的过程
+    public transient IndexNode indexRoot = null;// 索引树的根节点
 
     public Field() {
     }

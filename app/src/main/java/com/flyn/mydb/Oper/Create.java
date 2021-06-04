@@ -10,6 +10,7 @@ import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
+import java.io.OutputStreamWriter;
 
 public class Create implements Operate {
     private Table table=null;//创建的关系表
@@ -85,14 +86,12 @@ public class Create implements Operate {
      * 创建一个table，将配置信息写入configFile，将表添加至数据字典！！！
      */
     private void createTable() throws Exception {
-        this.table.getFile().createNewFile();
-        /*
-         * 将表添加至数据字典
-         */
+        File file=this.table.getFile();
+        file.createNewFile();
         DBMS.dataDictionary.getTables().add(this.table.getTableName());
         DBMS.loadedTables.put(this.table.getTableName(), this.table);
-        String s="successfully create a table";
-        App.getManage().outTextView(s);
+        String success="successfully create a table";
+        App.getManage().outTextView(success);
     }
 
     /**

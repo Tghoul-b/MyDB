@@ -46,4 +46,10 @@ public class ExampleUnitTest {
         temp=temp.split("(?i)(where)|;")[1];
         System.out.println(temp);
     }
+    @Test
+    public void testInt(){
+        String pattern="^(-?)[1-9]+[0-9]*$";
+        String s="-1";
+        System.out.println(s.matches(pattern));
+    }
 }
