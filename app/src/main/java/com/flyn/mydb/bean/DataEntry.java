@@ -2,10 +2,6 @@ package com.flyn.mydb.bean;
 
 import java.util.Set;
 
-/**
- * Ҷ�ڵ��е�<��ֵ-������>ԭ��
- *
- */
 public class DataEntry implements Comparable<DataEntry> {
 	private long key;
 	private Set<Integer> index;

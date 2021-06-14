@@ -13,7 +13,7 @@ public class IOUtil {
 		BufferedReader br = null;
 		List<String> list = new ArrayList<String>();
 		try {
-			br = new BufferedReader(new InputStreamReader(new FileInputStream(temp), "GBK"));
+			br = new BufferedReader(new InputStreamReader(new FileInputStream(temp), "UTF-8"));
 			String line = null;
 			while ((line = br.readLine()) != null) {
 //				System.out.println(line);

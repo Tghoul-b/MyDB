@@ -5,12 +5,15 @@ import com.flyn.mydb.Config.Table;
 import com.flyn.mydb.Service.DBMS;
 import com.flyn.mydb.Service.ParseAccount;
 import com.flyn.mydb.Util.App;
+import com.flyn.mydb.bean.BTree;
+import com.flyn.mydb.bean.DataEntry;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.OutputStreamWriter;
+import java.util.List;
 
 public class Create implements Operate {
     private Table table=null;//创建的关系表
@@ -31,7 +34,7 @@ public class Create implements Operate {
                 parseCreateTable();// 创建关系表
                 break;
             case 3:
-                //parseCreateIndex();// 创建索引
+                parseCreateIndex();// 创建索引
                 break;
             default:
                 throw  new RuntimeException("invalid create Instruction");
@@ -49,11 +52,11 @@ public class Create implements Operate {
         OperUtil.perpetuateDatabase(DBMS.dataDictionary, DBMS.dataDictionary.getConfigFile());//持久化数据库结构
     }
 
-//    private void parseCreateIndex() throws Exception {
-//        ParseAccount.parseIndex(this);//解析create-index语句
-//        this.table = OperUtil.loadTable(this.name);//加载待创建索引的关系表
-//        this.createIndex();//创建索引
-//    }
+    private void parseCreateIndex() throws Exception {
+        ParseAccount.parseIndex(this);//解析create-index语句
+        this.table = OperUtil.loadTable(this.name);//加载待创建索引的关系表
+        this.createIndex();//创建索引
+    }
 
     /**
      * 创建数据库！！！
@@ -99,29 +102,29 @@ public class Create implements Operate {
      * @param
      * @throws Exception
      */
-//    private void createIndex() throws Exception {
-//        int column = -1;
-//        String type = null;
-//        Field field = null;
-//        for (Field field1 : this.getTable().getAttributes()) {// 找到待创建索引的属性所在列
-//            if (field1.getFieldName().equals(this.getFieldName())) {
-//                column = field1.getColumn();
-//                type = field1.getType();
-//                field = field1;
-//            }
-//        }
-//        if (column == -1 || field == null) {
-//            throw new RuntimeException("此关系表中无此属性！");
-//        }
-//        List<DataEntry> indexList = OperUtil.getIndex(this.getTable().getFile(), column, type);// 获取指定列值和所在行
-//
-//        field.setIndex(true);// 有索引
-//        field.setIndexRoot(BTree.buildBT(indexList));// 创建B+树并获取根节点
-//        DBMS.indexEntry.put(this.indexName, field);//将索引名和索引属性添加到map，方便删除索引
-//        BTree.display(BTree.root);//显示创建的B+树
-//        System.out.println("创建索引成功！");
-//
-//    }
+    private void createIndex() throws Exception {
+        int column = -1;
+        String type = null;
+        Field field = null;
+        for (Field field1 : this.getTable().getAttributes()) {// 找到待创建索引的属性所在列
+            if (field1.getFieldName().equals(this.getFieldName())) {
+                column = field1.getColumn();
+                type = field1.getType();
+                field = field1;
+            }
+        }
+        if (column == -1 || field == null) {
+            throw new RuntimeException("no such feild in table");
+        }
+        List<DataEntry> indexList = OperUtil.getIndex(this.getTable().getFile(), column, type);// 获取指定列值和所在行
+
+        field.setIndex(true);// 有索引
+        field.setIndexRoot(BTree.buildBT(indexList));// 创建B+树并获取根节点
+        DBMS.indexEntry.put(this.indexName, field);//将索引名和索引属性添加到map，方便删除索引
+        BTree.display(BTree.root);//显示创建的B+树
+        System.out.println("create index successfully");
+
+    }
 
     public Table getTable() {
         return table;

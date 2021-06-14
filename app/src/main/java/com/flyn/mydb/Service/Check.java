@@ -241,7 +241,7 @@ public class Check {
 
         BufferedReader br = null;
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "GBK"));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
 
             String line = null;
             String[] lines = null;

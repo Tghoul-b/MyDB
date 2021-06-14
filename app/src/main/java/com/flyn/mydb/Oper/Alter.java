@@ -56,8 +56,8 @@ public class Alter implements Operate {
         table.setFile(new File(parentPath + File.separator + table.getTableName()));
 
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(temp), "GBK"));
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(table.getFile()), "GBK"));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(temp), "UTF-8"));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(table.getFile()), "UTF-8"));
             String line = null;
             String add = "";
             for (int i = 0; i < this.getFields().size(); i++) {
@@ -100,8 +100,8 @@ public class Alter implements Operate {
         table.getFile().renameTo(temp);
         table.setFile(new File(parentPath + File.separator + table.getTableName()));
         try {
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(temp), "GBK"));
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(table.getFile()), "GBK"), true);
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(temp), "UTF-8"));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(table.getFile()), "UTF-8"), true);
 
             String line = null;
             String[] fields = null;

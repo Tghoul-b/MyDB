@@ -11,14 +11,19 @@ import com.flyn.mydb.bean.Node;
 import com.flyn.mydb.bean.Tree;
 import com.flyn.mydb.dic.DataDictionary;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
+import java.io.UnsupportedEncodingException;
+import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 public class OperUtil {
@@ -46,6 +51,47 @@ public class OperUtil {
         }
         Tree.leaves = null;
         Tree.inners = null;
+    }
+    public static List<DataEntry> getIndex(File file, int column, String type) {
+        List<DataEntry> indexList = new ArrayList<DataEntry>();
+        DataEntry de = null;
+
+        BufferedReader br = null;
+        String line = null;
+        int index = 0;
+        try {
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(file), "UTF-8"));
+            long key;
+            if ("int".equalsIgnoreCase(type)) {
+                while ((line = br.readLine()) != null) {
+                    key = Long.parseLong(line.split(",")[column]);
+                    de = new DataEntry(key, new HashSet<Integer>());
+                    de.getIndex().add(index++);
+                    indexList.add(de);
+                }
+            } else if ("char".equalsIgnoreCase(type)||"date".equalsIgnoreCase(type)) {
+                while ((line = br.readLine()) != null) {
+                    key = line.split(",")[column].hashCode();
+                    de = new DataEntry(key, new HashSet<Integer>());
+                    de.getIndex().add(index++);
+                    indexList.add(de);
+                }
+            } else {
+                throw new RuntimeException("no such type feild");
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            if (br != null) {
+                try {
+                    br.close();
+                } catch (IOException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+
+        return indexList;
     }
     public static Set<Integer> getIndexOfBT(ConditionalExpression c) {
 
@@ -187,5 +233,15 @@ public class OperUtil {
         } else {
             throw new RuntimeException("read table Error");
         }
+    }
+    public static  int getLen(String s){
+        byte[] b = null;
+        try {
+            b = s.getBytes("gb2312");
+        } catch (
+            UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return  b.length;
     }
 }

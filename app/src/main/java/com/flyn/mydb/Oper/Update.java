@@ -48,7 +48,7 @@ public class Update extends Oper implements Operate {
         PrintWriter pw = null;
         boolean updated=false;
         try {
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(this.table.getFile()), "GBK"));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(this.table.getFile()), "UTF-8"));
             String[] fields = null;
             for (String line : list) {
                 if (Check.isSatisfiedOper(line, this)) {//如果满足更新条件

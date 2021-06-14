@@ -28,7 +28,7 @@ public class Insert implements Operate{
         }
     }
     private void insert() throws Exception {
-        PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(this.table.getFile(), true), "GBK"));
+        PrintWriter pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(this.table.getFile(), true), "UTF-8"));
         pw.println(this.values);
         pw.close();
     }

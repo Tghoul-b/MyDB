@@ -47,8 +47,8 @@ public class Delete extends Oper implements Operate {
         try {
             table.getFile().createNewFile();
 
-            br = new BufferedReader(new InputStreamReader(new FileInputStream(temp), "GBK"));
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(table.getFile())));
+            br = new BufferedReader(new InputStreamReader(new FileInputStream(temp), "UTF-8"));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(table.getFile()),"UTF-8"));
             String line = null;
 
             while ((line = br.readLine()) != null) {

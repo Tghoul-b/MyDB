@@ -90,10 +90,12 @@ public class ParseAccount {
             }
         }
         if (!left.contains(".") && !right.contains(".")) {
-            System.out.println("语句非法！常量比较");
         }
     }
-
+    public static void parseIndex(Create create) {
+        create.setIndexName(create.getAccount().split("\\s|;")[2]);
+        create.setFieldName(create.getAccount().split("\\s|;")[5]);
+    }
     public static  Table parseTable(String account, String name) throws Exception{
         String attr=account.substring(account.indexOf('(')+1,account.lastIndexOf(')')).trim();
         String[] attrs=attr.split(",");
@@ -113,7 +115,9 @@ public class ParseAccount {
                 field.setType("INT");
                 field.setLength(4);
             }else if(t.startsWith("char")){
-                String d=(t.substring(t.indexOf('(')+1,t.lastIndexOf(')')));
+                String d="";
+                if(t.contains("("))
+                d=(t.substring(t.indexOf('(')+1,t.lastIndexOf(')')));
                 int length=0;
                 if(TextUtils.isEmpty(d))
                     length=32;//默认长度32
@@ -174,7 +178,7 @@ public class ParseAccount {
             return 1;//建数据库
         }
         else if(create.getAccount().matches(indexP)){
-            create.setName(arr[2]);
+            create.setName(arr[4]);
             return 3;//建立索引
         }
         else{
@@ -420,7 +424,7 @@ public class ParseAccount {
         String pattern="(?i)^(insert)\\s+(into)\\s+\\w+\\s+(values)\\s*"
                 +"\\(\\s*(\\S+)\\s*(,\\s*\\S+\\s*)*\\);$";
         if(!account.matches(pattern)){
-            throw new RuntimeException("非法Insert语句");
+            throw new RuntimeException("invalid insert Instruction");
         }
         String tableName=account.split("\\s")[2];
         insert.setTableName(tableName);
@@ -486,7 +490,7 @@ public class ParseAccount {
     public static void parseAlter(Alter alter) throws Exception {
         String account = alter.getAccount();
 
-        String patternAdd = "(?i)^(alter)\\s(table)\\s\\S+\\s(add)\\s((\\S+\\sint)|(\\S+\\schar\\(\\w+\\))|(\\S+\\sdate))\\s?;$";
+        String patternAdd = "(?i)^(alter)\\s(table)\\s\\S+\\s(add)\\s((\\S+\\sint)|(\\S+\\schar(\\(\\w+\\))?)|(\\S+\\sdate))\\s?;$";
         String patternDrop = "(?i)^(alter)\\s(table)\\s\\w+\\s(drop)(\\s\\w+)(\\s?,\\s?\\w+)*\\s?;$";
 
         if (account.matches(patternAdd)) {//alter-add操作

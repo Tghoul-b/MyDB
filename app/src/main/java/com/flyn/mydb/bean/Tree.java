@@ -66,7 +66,7 @@ public class Tree {
 
         for (Node node : roots) {
             try {
-                br = new BufferedReader(new InputStreamReader(new FileInputStream(node.getFile())));
+                br = new BufferedReader(new InputStreamReader(new FileInputStream(node.getFile()),"UTF-8"));
                 String line = null;
                 while ((line = br.readLine()) != null) {
                     set.add(line);
@@ -461,7 +461,7 @@ public class Tree {
             if (!temp.exists()) {
                 temp.createNewFile();
             }
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(temp), "GBK"));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(temp), "UTF-8"));
             int accountNumbers = 0;
             if (retainIndex.size() != 0) {
                 String subLine = null;
@@ -509,9 +509,9 @@ public class Tree {
         List<String> lines = new ArrayList<String>();//保存记录
         com.zhouchao.db.Hash hashTable = null;//哈希表
         try {
-            leftReader = new BufferedReader(new InputStreamReader(new FileInputStream(leftFile), "GBK"));
-            rightReader = new BufferedReader(new InputStreamReader(new FileInputStream(rightFile), "GBK"));
-            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(tempFile), "GBK"));
+            leftReader = new BufferedReader(new InputStreamReader(new FileInputStream(leftFile), "UTF-8"));
+            rightReader = new BufferedReader(new InputStreamReader(new FileInputStream(rightFile), "UTF-8"));
+            pw = new PrintWriter(new OutputStreamWriter(new FileOutputStream(tempFile), "UTF-8"));
 
             if (node.isJoinOperation()) {//如果是自然连接
                 if (leftChild.getAccountNumbers() <= rightChild.getAccountNumbers()) {//左边孩子结点的记录条数少
@@ -595,7 +595,7 @@ public class Tree {
                         accountNumbers += 1;
                     }
                     rightReader.close();
-                    rightReader = new BufferedReader(new InputStreamReader(new FileInputStream(rightFile), "GBK"));
+                    rightReader = new BufferedReader(new InputStreamReader(new FileInputStream(rightFile), "UTF-8"));
                 }
                 node.setAccountNumbers(accountNumbers);//此内节点的记录数
 //				System.out.println(accountNumbers);
@@ -664,14 +664,22 @@ public class Tree {
         List<String[]> records=new ArrayList<>();
         for(String s:displayAccounts){
             String[] t=s.split(",");
+            for(int j=0;j<t.length;j++){
+                String d=t[j];
+                while (d.startsWith("\""))
+                    d=d.substring(1);
+                while (d.endsWith("\""))
+                    d=d.substring(0,d.length()-1);
+                t[j]=d;
+            }
             records.add(t);
         }
         int length=fieldList.size();
        List<Integer> maxLen=new ArrayList<>();
         for(int i=0;i<length;i++){
-            int t=fieldList.get(i).getFieldName().length();
+            int t=OperUtil.getLen(fieldList.get(i).getFieldName());
             for(String []record:records){
-                t=Math.max(t,record[i].length());
+                t=Math.max(t,OperUtil.getLen(record[i]));
             }
             maxLen.add(t+2);
         }
@@ -692,7 +700,7 @@ public class Tree {
                 for(int j=0;j<length;j++){
                     String t=" ";
                     t+=fieldList.get(j).getFieldName();
-                    while(t.length()<maxLen.get(j))  t+=" ";
+                    while(OperUtil.getLen(t)<maxLen.get(j))  t+=" ";
                     t+="|";
                     s+=t;
                 }
@@ -704,7 +712,7 @@ public class Tree {
                 for(int j=0;j<length;j++){
                     String t=" ";
                     t+=curRecord[j];
-                    while(t.length()<maxLen.get(j))  t+=" ";
+                    while(OperUtil.getLen(t)<maxLen.get(j))  t+=" ";
                     t+="|";
                     s+=t;
                 }

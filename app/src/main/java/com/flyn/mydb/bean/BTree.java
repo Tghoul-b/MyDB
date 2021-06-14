@@ -8,8 +8,8 @@ import java.util.LinkedList;
 import java.util.List;
 import com.flyn.mydb.Config.IndexNode;
 public class BTree {
-	private static  IndexNode root;
-	public IndexNode buildBT(List<DataEntry> indexList) {
+	public static  IndexNode root;
+	public static  IndexNode buildBT(List<DataEntry> indexList) {
 		BTree.root = null;
 		for (DataEntry de : indexList) {
 			IndexLeafNode node = BTree.find(BTree.root, de.getKey());
