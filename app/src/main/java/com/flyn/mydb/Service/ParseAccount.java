@@ -149,6 +149,9 @@ public class ParseAccount {
      * @param account
      * @return
      */
+    public static String parseIndexName(String account) {
+        return account.split("\\s")[2];
+    }
     public static String parseUse(String account){
         String pattern="(?i)^(use)\\s(database)\\s\\S+\\s?;$";  //\s匹配空白字符,\S匹配非空白字符,^定义以use开头  (?i)表示忽略大小写
         if(!account.matches(pattern)){

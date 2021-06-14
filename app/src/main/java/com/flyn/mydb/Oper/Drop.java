@@ -1,5 +1,9 @@
 package com.flyn.mydb.Oper;
 
+import android.os.Build;
+
+import androidx.annotation.RequiresApi;
+
 import com.flyn.mydb.Config.Table;
 import com.flyn.mydb.Service.DBMS;
 import com.flyn.mydb.Service.ParseAccount;
@@ -15,19 +19,28 @@ public class Drop implements Operate{
         this.account = account;
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     public void start() throws Exception {
         switch (ParseAccount.parseDrop(this.account)) {// 解析drop语句，若返回1则是删除关系表，若返回2则是删除索引。
             case 1:
                 parseDropTable();// 删除关系表
                 break;
+            case 2:
+                parseDropIndex();
+                break;
+            default:
+                App.getManage().outTextView("invalid drop Instruction");
+                break;
         }
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void parseDropTable() throws Exception {
         this.name = ParseAccount.parseTableName(this.account);//解析drop-table语句
         this.dropTable();//执行drop-table操作
         OperUtil.perpetuateDatabase(DBMS.dataDictionary, DBMS.dataDictionary.getConfigFile());//持久化数据库结构
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     private void dropTable() throws Exception{
 
         File file = new File(DBMS.currentPath + File.separator + this.name);
@@ -48,6 +61,18 @@ public class Drop implements Operate{
 
         } else {
             throw new RuntimeException("table "+this.name+" not exist");
+        }
+    }
+    public void parseDropIndex() {
+        this.name = ParseAccount.parseIndexName(this.account);
+        this.dropIndex();
+    }
+    private void dropIndex() {
+        if (DBMS.indexEntry.containsKey(this.name)) {
+            DBMS.indexEntry.remove(this.name);
+            App.getManage().outTextView("drop index successfully");
+        } else {
+           App.getManage().outTextView("drop index failed");
         }
     }
     public String getAccount() {

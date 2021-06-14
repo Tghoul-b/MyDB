@@ -122,7 +122,7 @@ public class Create implements Operate {
         field.setIndexRoot(BTree.buildBT(indexList));// 创建B+树并获取根节点
         DBMS.indexEntry.put(this.indexName, field);//将索引名和索引属性添加到map，方便删除索引
         BTree.display(BTree.root);//显示创建的B+树
-        System.out.println("create index successfully");
+        App.getManage().outTextView("create index successfully");
 
     }
 
