@@ -121,6 +121,7 @@ public class Create implements Operate {
         field.setIndex(true);// 有索引
         field.setIndexRoot(BTree.buildBT(indexList));// 创建B+树并获取根节点
         DBMS.indexEntry.put(this.indexName, field);//将索引名和索引属性添加到map，方便删除索引
+        OperUtil.perpetuateIndex(DBMS.indexEntry,new File(DBMS.currentPath+File.separator+"index.config"));
         BTree.display(BTree.root);//显示创建的B+树
         App.getManage().outTextView("create index successfully");
 

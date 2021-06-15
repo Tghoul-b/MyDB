@@ -67,13 +67,22 @@ public class Drop implements Operate{
         this.name = ParseAccount.parseIndexName(this.account);
         this.dropIndex();
     }
-    private void dropIndex() {
+    private void dropIndex(){
+        if(DBMS.indexEntry.size()==0)
+            DBMS.indexEntry=OperUtil.loadIndexs();
         if (DBMS.indexEntry.containsKey(this.name)) {
             DBMS.indexEntry.remove(this.name);
             App.getManage().outTextView("drop index successfully");
         } else {
            App.getManage().outTextView("drop index failed");
         }
+
+        try {
+            OperUtil.perpetuateIndex(DBMS.indexEntry,new File(DBMS.currentPath+File.separator+"index.config"));
+        }catch (Exception e){
+            App.getManage().outTextView(e.getMessage());
+        }
+
     }
     public String getAccount() {
         return account;

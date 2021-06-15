@@ -546,7 +546,7 @@ public class ParseAccount {
     }
     public static int parseDrop(String account){
         String tableP="(?i)^(drop)\\s+(table)\\s+\\w+\\s*;";
-        String IndexP="(?i)^(drop)\\s+(index)\\s+\\w+\\s*;";
+        String IndexP="(?i)^(drop)\\s+(index)\\s+\\w+\\s+(on)\\s+\\w+\\s*;$";
         if(account.matches(tableP))
             return 1;
         else if(account.matches(IndexP))

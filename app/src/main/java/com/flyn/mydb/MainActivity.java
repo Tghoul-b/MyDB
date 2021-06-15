@@ -74,6 +74,7 @@ public class MainActivity extends AppCompatActivity {
     private ScrollView mScrollView;
     private List<String> cmdList;
     private int curCmdCnt=-1;
+    private DBMS dbms;
     private Handler mHandler=new Handler(new Handler.Callback() {
         @Override
         public boolean handleMessage(@NonNull Message msg) {
@@ -182,7 +183,9 @@ public class MainActivity extends AppCompatActivity {
         String s=input.toString();
         setupNewInput();
         try {
-            new DBMS().start(s);
+            if(dbms==null)
+                dbms=new DBMS();
+            dbms.start(s);
         }catch (Exception e){
             String err=e.getMessage();
             App.getManage().outTextView(err);

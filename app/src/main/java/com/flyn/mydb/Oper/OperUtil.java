@@ -1,6 +1,7 @@
 package com.flyn.mydb.Oper;
 
 import com.flyn.mydb.Config.ConditionalExpression;
+import com.flyn.mydb.Config.Field;
 import com.flyn.mydb.Config.IndexNode;
 import com.flyn.mydb.Config.Table;
 import com.flyn.mydb.Service.DBMS;
@@ -24,6 +25,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 public class OperUtil {
@@ -37,6 +39,13 @@ public class OperUtil {
         file.delete();
         ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(file));
         oos.writeObject(table);//将关系表结构信息持久化
+        oos.close();
+    }
+
+    public static void perpetuateIndex(Map<String, Field> indexEntry,File file) throws Exception{
+        file.delete();
+        ObjectOutputStream oos=new ObjectOutputStream(new FileOutputStream(file));
+        oos.writeObject(indexEntry);
         oos.close();
     }
     public static void perpetuateDatabase(DataDictionary dd, File file) throws Exception {
@@ -92,6 +101,17 @@ public class OperUtil {
         }
 
         return indexList;
+    }
+    public static Map<String,Field>  loadIndexs() {
+        try {
+            File file = new File(DBMS.currentPath + File.separator + "index.config");
+            ObjectInputStream ois = new ObjectInputStream(new FileInputStream(file));
+            Map<String, Field> map = (Map<String, Field>) ois.readObject();
+            return map;
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+        return null;
     }
     public static Set<Integer> getIndexOfBT(ConditionalExpression c) {
 

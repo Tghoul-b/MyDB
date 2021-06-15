@@ -31,7 +31,7 @@ public class Use implements Operate{
         List<String> ds=DBMS.databases;
         File databaseDir = new File(DBMS.ROOTPATH, this.databaseName);
         if (!databaseDir.exists()) {
-            System.out.println("database not exist");
+            App.getManage().outTextView("database not exist");
             return;
         }
         DBMS.currentPath = DBMS.ROOTPATH + File.separator + this.databaseName;

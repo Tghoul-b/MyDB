@@ -4,11 +4,12 @@ import com.flyn.mydb.Config.Table;
 import com.flyn.mydb.Util.App;
 import com.flyn.mydb.dic.DataDictionary;
 
+import java.io.Serializable;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class DBMS {
+public class DBMS implements Serializable {
     public static String ROOTPATH;
     public static String currentPath;
     public static DataDictionary dataDictionary=null;//用来记录各数据库的存储结构
@@ -23,7 +24,7 @@ public class DBMS {
     }
     public  void start(String s) throws Exception{
         ROOTPATH=App.getApplication().getExternalFilesDir(null).toString();
-        DBMS.currentPath = ROOTPATH;
+        //DBMS.currentPath = ROOTPATH;
         new Handler(s).start();
     }
 }
